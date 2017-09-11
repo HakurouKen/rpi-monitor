@@ -2,11 +2,17 @@
   "name": "rpi-monitor",
   "version": "0.1.0",
   "description": "Get system info of Raspberry Pi.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "dev": "babel src -d dist -w",
+    "build": "babel src -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "HakurouKen",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0"
+  }
 }
