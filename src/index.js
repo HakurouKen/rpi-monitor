@@ -59,7 +59,7 @@ export function getCpuState() {
     softirq: arr[7],
     steal: arr[8],
     guest: arr[9],
-    guest_nice: arr[10]
+    guestNice: arr[10]
   };
 }
 
@@ -79,9 +79,9 @@ export function getLoadAvg() {
   const loadAvg = read('/proc/loadavg');
   const arr = loadAvg.split(' ');
   return {
-    1: arr[0],
-    5: arr[1],
-    15: arr[2]
+    1: +arr[0] || 0,
+    5: +arr[1] || 0,
+    15: +arr[2] || 0
   };
 }
 
