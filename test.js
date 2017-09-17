@@ -1,8 +1,9 @@
-import { expect } from 'chai';
-import * as singleMonitors from '..';
-import monitor from '..';
+var chai = require('chai');
+var expect = chai.expect;
 
-const singleMonitorTestCases = {
+var proc = require('.');
+
+const procTestCases = {
   getCoreInfo(info) {
     expect(info).to.be.an('object');
 
@@ -55,7 +56,7 @@ const singleMonitorTestCases = {
     });
   },
 
-  getMemInfo(info) {
+  getMemoryInfo(info) {
     expect(info).to.be.an('object');
     [
       'MemTotal',
@@ -97,70 +98,60 @@ const singleMonitorTestCases = {
   }
 };
 
-describe('singleMonitors', function() {
-  function testSingleMonitor(func, desc) {
+describe('single process', function() {
+  function testproc(func, desc) {
     describe(`#${func}()`, function() {
       it(desc, function() {
-        singleMonitorTestCases[func](singleMonitors[func]());
+        procTestCases[func](proc[func]());
       });
     });
   }
 
-  testSingleMonitor(
+  testproc(
     'getCoreInfo',
     'should return core system archiecture dependent items'
   );
 
-  testSingleMonitor(
+  testproc(
     'getUptime',
     'should return the total number of seconds the system has been up'
   );
 
-  testSingleMonitor(
-    'getCpuTemperature',
-    'should return the temperature of cpu'
-  );
+  testproc('getCpuTemperature', 'should return the temperature of cpu');
 
-  testSingleMonitor(
-    'getGpuTemperature',
-    'should return the temperature of gpu'
-  );
+  testproc('getGpuTemperature', 'should return the temperature of gpu');
 
-  testSingleMonitor('getCpuState', 'should return the cpu processing state');
+  testproc('getCpuState', 'should return the cpu processing state');
 
-  testSingleMonitor(
-    'getMemInfo',
+  testproc(
+    'getMemoryInfo',
     'should return statistics about memory usage on the system'
   );
 
-  testSingleMonitor(
+  testproc(
     'getLoadAvg',
     'should return load average figures giving the number of jobs in the run queue or waiting for disk I/O averaged over 1, 5, and 15 minutes'
   );
 
-  testSingleMonitor(
-    'getNetInfo',
-    'should return network device status information'
-  );
+  testproc('getNetInfo', 'should return network device status information');
 
-  testSingleMonitor(
-    'getDiskInfo',
-    'should return file system disk space usage'
-  );
+  testproc('getDiskInfo', 'should return file system disk space usage');
 });
 
-describe('monitor', function() {
-  it('should return aggregated information of single monitors', function() {
-    const info = monitor();
-    expect(info).to.be.an('object');
-    singleMonitorTestCases.getCoreInfo(info.core);
-    singleMonitorTestCases.getUptime(info.uptime);
-    singleMonitorTestCases.getCpuTemperature(info.temperature.cpu);
-    singleMonitorTestCases.getGpuTemperature(info.temperature.gpu);
-    singleMonitorTestCases.getCpuState(info.stat);
-    singleMonitorTestCases.getMemInfo(info.memory);
-    singleMonitorTestCases.getLoadAvg(info.loadAvg);
-    singleMonitorTestCases.getNetInfo(info.net);
-    singleMonitorTestCases.getDiskInfo(info.disk);
+describe('aggregated process', function() {
+  describe('#getInfo()', function() {
+    it('should return aggregated information of single ones', function() {
+      const info = proc.getInfo();
+      expect(info).to.be.an('object');
+      procTestCases.getCoreInfo(info.core);
+      procTestCases.getUptime(info.uptime);
+      procTestCases.getCpuTemperature(info.temperature.cpu);
+      procTestCases.getGpuTemperature(info.temperature.gpu);
+      procTestCases.getCpuState(info.stat);
+      procTestCases.getMemoryInfo(info.memory);
+      procTestCases.getLoadAvg(info.loadAvg);
+      procTestCases.getNetInfo(info.net);
+      procTestCases.getDiskInfo(info.disk);
+    });
   });
 });
