@@ -40,4 +40,4 @@ proc.getInfo();
 ```
 
 ## License
-MIT
+[MIT](https://github.com/HakurouKen/rpi-proc-info/blob/master/LICENSE)
