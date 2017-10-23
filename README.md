@@ -11,32 +11,32 @@ npm install rpi-proc-info
 ```javascript
 var proc = require('rpi-proc-info');
 
-// get core system archiecture dependent items
-proc.getCoreInfo();
+// core system archiecture dependent items
+proc.core
 
-// get the total number of seconds the system has been up
-proc.getUptime();
+// the total number of seconds the system has been up
+proc.uptime
 
-// get the temperature of cpu
-proc.getCpuTemperature();
+// the temperature of cpu
+proc.temperature.cpu
 
-// get the temperature of gpu
-proc.getGpuTemperature();
+// the temperature of gpu
+proc.temperature.gpu
 
-// get statistics about memory usage on the system
-proc.getMemoryInfo();
+// statistics about memory usage on the system
+proc.memory
 
-// get load average figures giving the number of jobs in the run queue or waiting for disk I/O averaged over 1, 5, and 15 minutes
-proc.getLoadAvg();
+// load average figures giving the number of jobs in the run queue or waiting for disk I/O averaged over 1, 5, and 15 minutes
+proc.loadAvg
 
-// get network device status information
-proc.getNetInfo();
+// network device status information
+proc.net
 
-// get file system disk space usage
-proc.getDiskInfo();
+// file system disk space usage
+proc.disk
 
-// get aggregated information of single ones(all above)
-proc.getInfo();
+// aggregated information of single ones(all above)
+proc.info
 ```
 
 ## License
